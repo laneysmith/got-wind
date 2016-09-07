@@ -1,29 +1,19 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+<html>
 <head>
-	<title>hi!</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
+	<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" type="text/css" href="styles/d3.slider.css" media="screen" />
 </head>
-<style>
-	html,
-	body {
-		padding: 0;
-		margin: 0;
-	}
-
-	body {
-		background-color: #ADD8E6;
-	}
-
-	.land {
-		fill: hsl(134, 26%, 76%);
-		stroke: hsl(134, 26%, 65%);
-		stroke-width: 1px;
-	}
-</style>
-
 <body>
+	<div id="slider"></div>
+
 	<script src="//d3js.org/d3.v3.min.js"></script>
 	<script src="//d3js.org/topojson.v1.min.js"></script>
+	<script src="js/d3.slider.js"></script>
 	<script>
 		var width = window.innerWidth,
 			height = window.innerHeight;
@@ -42,29 +32,6 @@
 			.attr("width", width)
 			.attr("height", height);
 
-		// d3.json("us.json", function(error, us) {
-		// 	if (error) throw error;
-		// 	// land
-		// 	svg.insert("path", ".graticule")
-		// 		.datum(topojson.feature(us, us.objects.land))
-		// 		.attr("class", "land")
-		// 		.attr("d", path);
-		// 	// state boundaries
-		// 	svg.insert("path", ".graticule")
-		// 		.datum(topojson.mesh(us, us.objects.states, function(a, b) {
-		// 			return a !== b;
-		// 		}))
-		// 		.attr("class", "state-boundary")
-		// 		.attr("d", path);
-		// 	// islands
-		// 	svg.selectAll("path.features")
-		// 		.data(us.objects.islands.features)
-		// 		.enter()
-		// 		.append("path")
-		// 		.attr("class", "minor-islands")
-		// 		.attr("d", path);
-		// });
-
 		d3.json("maps/states.json", function(error, us) {
 			if (error) throw error;
 			svg.selectAll("path")
@@ -75,6 +42,19 @@
 				.attr("d", path);
 		});
 
-
 		d3.select(self.frameElement).style("height", height + "px");
+
+		// tick formatter
+		var formatter = d3.format(",.2f");
+		var tickFormatter = function(d) {
+		return formatter(d) + " hr";
+		}
+
+		// Initialize slider
+		var slider = d3.slider().min(0).max(20).tickValues([0,5,10,15,20]).stepValues([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]).tickFormat(tickFormatter);
+		// Render the slider in the div
+		d3.select('#slider').call(slider);
 	</script>
+
+</body>
+</html>
