@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+	<title>hi!</title>
+</head>
+<style>
+	html,
+	body {
+		padding: 0;
+		margin: 0;
+	}
+
+	body {
+		background-color: #ADD8E6;
+	}
+
+	.land {
+		fill: hsl(134, 26%, 76%);
+		stroke: hsl(134, 26%, 65%);
+		stroke-width: 1px;
+	}
+</style>
+
+<body>
+	<script src="//d3js.org/d3.v3.min.js"></script>
+	<script src="//d3js.org/topojson.v1.min.js"></script>
+	<script>
+		var width = window.innerWidth,
+			height = window.innerHeight;
+
+		var projection = d3.geo.albers()
+			.center([20, 35])
+			// .rotate([0, 0])
+			// .parallels([30, 40])
+			.scale(10000)
+			.translate([width / 2, height / 2]);
+
+		var path = d3.geo.path()
+			.projection(projection);
+
+		var svg = d3.select("body").append("svg")
+			.attr("width", width)
+			.attr("height", height);
+
+		// d3.json("us.json", function(error, us) {
+		// 	if (error) throw error;
+		// 	// land
+		// 	svg.insert("path", ".graticule")
+		// 		.datum(topojson.feature(us, us.objects.land))
+		// 		.attr("class", "land")
+		// 		.attr("d", path);
+		// 	// state boundaries
+		// 	svg.insert("path", ".graticule")
+		// 		.datum(topojson.mesh(us, us.objects.states, function(a, b) {
+		// 			return a !== b;
+		// 		}))
+		// 		.attr("class", "state-boundary")
+		// 		.attr("d", path);
+		// 	// islands
+		// 	svg.selectAll("path.features")
+		// 		.data(us.objects.islands.features)
+		// 		.enter()
+		// 		.append("path")
+		// 		.attr("class", "minor-islands")
+		// 		.attr("d", path);
+		// });
+
+		d3.json("maps/states.json", function(error, us) {
+			if (error) throw error;
+			svg.selectAll("path")
+				.data(us.features)
+				.enter()
+				.append("path")
+				.attr("class", "land")
+				.attr("d", path);
+		});
+
+
+		d3.select(self.frameElement).style("height", height + "px");
+	</script>
