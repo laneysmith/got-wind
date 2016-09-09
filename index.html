@@ -1,60 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="windApp">
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title></title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Slabo+27px" rel="stylesheet">
 	<link rel="stylesheet" href="styles/main.css">
 	<link rel="stylesheet" type="text/css" href="styles/d3.slider.css" media="screen" />
 </head>
-<body>
-	<div id="slider"></div>
+
+<body ng-controller="MainController">
+	<!-- <div id="slider"></div> -->
+	<!-- <div id="detail">
+		<h1>{{city}}</h1>
+		<h2>Current Weather</h2>
+		<h3>Wind</h3>
+		<p><b>Speed</b>: 12 knots</p>
+		<p>Gust: 18 knots</p>
+		<p>Direction: NE</p>
+
+	</div> -->
+
 
 	<script src="//d3js.org/d3.v3.min.js"></script>
 	<script src="//d3js.org/topojson.v1.min.js"></script>
 	<script src="js/d3.slider.js"></script>
+	<script src="js/data.js"></script>
+	<script src="js/cities.js"></script>
 	<script>
+		console.log(windData.dwml.data);
 		var width = window.innerWidth,
 			height = window.innerHeight;
 
 		var projection = d3.geo.albers()
 			.center([20, 35])
-			// .rotate([0, 0])
-			// .parallels([30, 40])
 			.scale(10000)
-			.translate([width / 2, height / 2]);
+			// .parallels([30, 40])
+			// .scale(10000)
+			.translate([width / 2, height / 2])
+			// .rotate([0, 0]);
 
 		var path = d3.geo.path()
 			.projection(projection);
+
+		var zoom = d3.behavior.zoom()
+			.translate([0, 0])
+			.scale(1)
+			.scaleExtent([-8, 8])
+			.on("zoom", zoomed);
 
 		var svg = d3.select("body").append("svg")
 			.attr("width", width)
 			.attr("height", height);
 
+		svg.append("rect")
+			.attr("class", "background")
+			.attr("width", width)
+			.attr("height", height)
+			.call(zoom);
+
+		var g = svg.append("g");
+
+		svg
+			.call(zoom)
+			.call(zoom.event);
+
 		d3.json("maps/states.json", function(error, us) {
 			if (error) throw error;
-			svg.selectAll("path")
+			// add states to map
+			g.selectAll("path")
 				.data(us.features)
 				.enter()
 				.append("path")
 				.attr("class", "land")
+				.style("stroke-width", "0.5px")
 				.attr("d", path);
+
+			g.selectAll(".pin")
+				.data(cities)
+				.enter().append("circle", ".pin")
+				.attr("r", 2)
+				.attr("transform", function(d) {
+					return "translate(" + projection([
+						d.lon,
+						d.lat
+					]) + ")";
+				})
+				.text(function(d) {
+					return d.city;
+				});
+
+			g.selectAll(".place-label")
+				.data(cities)
+				.enter().append("text")
+				.attr("class", "place-label")
+				.attr("transform", function(d) {
+					return "translate(" + projection([d.lon, d.lat]) + ")";
+				})
+				.attr("dy", ".35em")
+				.text(function(d) {
+					return d.city;
+				});
+
+			g.selectAll(".place-label")
+				.attr("x", function(d) {
+					return d.lon > -1 ? 6 : 8;
+				})
+				// .style("text-anchor", function(d) {
+				// 	return d.lon > -1 ? "start" : "end";
+				// });
+
+			// g.append("path")
+			// 	.datum(topojson.feature(windData, windData.dwml.data))
+			// 	.attr("d", path)
+			// 	.attr("class", "place");
 		});
+
+		function zoomed() {
+			g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+			g.select(".land").style("stroke-width", 0.5 / d3.event.scale + "px");
+		}
+
 
 		d3.select(self.frameElement).style("height", height + "px");
 
 		// tick formatter
 		var formatter = d3.format(",.2f");
 		var tickFormatter = function(d) {
-		return formatter(d) + " hr";
+			return formatter(d) + " hr";
 		}
 
 		// Initialize slider
-		var slider = d3.slider().min(0).max(20).tickValues([0,5,10,15,20]).stepValues([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]).tickFormat(tickFormatter);
+		var slider = d3.slider().min(0).max(20).tickValues([0, 5, 10, 15, 20]).stepValues([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]).tickFormat(tickFormatter);
 		// Render the slider in the div
 		d3.select('#slider').call(slider);
 	</script>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="/js/app.js"></script>
+	<script src="/js/dataFactory.js"></script>
+	<script src="/js/mainController.js"></script>
+
 </body>
+
 </html>
