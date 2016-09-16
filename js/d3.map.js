@@ -188,18 +188,10 @@ d3.json("maps/states.json", function(error, us) {
     .enter()
     .append("line")
     .attr({
-      x1: function(d) {
-        return d.lat
-      },
-      y1: function(d) {
-        return d.lon
-      },
-      x2: function(d) {
-        return (d.lat + (parseInt(d.spd[0])))
-      },
-      y2: function(d) {
-        return (d.lon + (parseInt(d.spd[0])))
-      },
+      x2: function(d) {return d.lat},
+      y2: function(d) {return d.lon},
+      x1: function(d) {return (d.lat + (parseInt(d.spd[0])))},
+      y1: function(d) {return (d.lon + (parseInt(d.spd[0])))},
     })
     .attr("stroke-width", 2)
     .attr("stroke", function(d) {
@@ -210,10 +202,12 @@ d3.json("maps/states.json", function(error, us) {
       return "translate(" + projection([
         d.lon,
         d.lat
-      ]) + ")";
+      ]) + ") rotate(" + (d.dir[0]) + ")";
     })
+    // .attr("transform", "rotate(-22)")
     // .attr('transform', 'translate(200,100)rotate(-22)')
     // .rotate(72)
+    // .attr("transform", "translate(" + function(d) {return d.lat} + "," + function(d) {return d.lon} +" ) rotate(" + function(d) {return d.dir[0]} + ")")
     .text(function(d) {
       return d.spd;
     })
@@ -499,8 +493,8 @@ var tickFormatter = function(d) {
 function lineAnimate(selection) {
   selection
     .attr({
-      x2: function(d) {return d.lat},
-      y2: function(d) {return d.lon}
+      x2: function(d) {return (d.lat + (parseInt(d.spd[0])))},
+      y2: function(d) {return (d.lon + (parseInt(d.spd[0])))}
     })
     .style('opacity', 0)
     .transition()
@@ -510,8 +504,9 @@ function lineAnimate(selection) {
       return d.spd[0] * 10;
     })
     .attr({
-        x2: function(d) {return (d.lat + (parseInt(d.spd[0])))},
-        y2: function(d) {return (d.lon + (parseInt(d.spd[0])))}
+      x2: function(d) {return d.lat},
+      y2: function(d) {return d.lon}
+
         })
       .style('opacity', 0.9)
       .transition()
