@@ -10,15 +10,23 @@
 	<link rel="stylesheet" type="text/css" href="styles/d3.slider.css" media="screen" />
 </head>
 <body ng-controller="MainController">
-	<!-- <div id="slider"></div> -->
-	<!-- <div id="detail">
-		<h1>{{city}}</h1>
-		<h2>Current Weather</h2>
+
+	<div id="mapBox">
+		<div id="slider"></div>
+	</div>
+	<div id="detailBox">
+		<h1>Latitude: 34.56</h1>
+		<h1>Longitude: -76.06</h1>
+		<h2>+{{timeIndex*3}} Hour Forecast</h2>
 		<h3>Wind</h3>
 		<p><b>Speed</b>: 12 knots</p>
 		<p>Gust: 18 knots</p>
 		<p>Direction: NE</p>
-	</div> -->
+		<h3>Wave</h3>
+		<p><b>Height</b>: 8 m</p>
+		<p>Period: blah</p>
+	</div>
+
 
 	<script src="//d3js.org/d3.v3.min.js"></script>
 	<script src="js/d3.slider.js"></script>
@@ -31,10 +39,11 @@
 	<script src="newwavedata.json"></script>
 	<script src="newwinddata.json"></script>
 	<script src="dwmlthingy.json"></script>
-	<script src="js/data.js"></script>
+	<script src="dwml20160919.json"></script>
+	<!-- <script src="js/data.js"></script> -->
 	<!-- <script src="js/windy.js"></script> -->
 	<script src="js/cities.js"></script>
-	<script src="js/d3.map.js"></script>
+	<!-- <script src="js/d3.map.js"></script> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="/js/app.js"></script>
