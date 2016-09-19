@@ -15,16 +15,17 @@
 		<div id="slider"></div>
 	</div>
 	<div id="detailBox">
-		<h1>Latitude: 34.56</h1>
-		<h1>Longitude: -76.06</h1>
-		<h2>+{{timeIndex*3}} Hour Forecast</h2>
+		<h1>Latitude: {{selected.lat}}</h1>
+		<h1>Longitude: {{selected.lon}}</h1>
+		<h2 ng-if="timeIndex == 0">Current Weather</h2>
+		<h2 ng-if="timeIndex > 0">+{{timeIndex*3}} Hour Forecast</h2>
 		<h3>Wind</h3>
-		<p><b>Speed</b>: 12 knots</p>
-		<p>Gust: 18 knots</p>
-		<p>Direction: NE</p>
+
+		<p><b>Speed</b>: {{selected.spd[timeIndex]}} knots</p>
+		<p>Gust: {{selected.gust[timeIndex]}} knots</p>
+		<p>Direction: {{selected.dir[timeIndex]}}</p>
 		<h3>Wave</h3>
-		<p><b>Height</b>: 8 m</p>
-		<p>Period: blah</p>
+		<p><b>Height</b>: {{selected.wave[timeIndex]}} m</p>
 	</div>
 
 
