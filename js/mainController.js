@@ -8,15 +8,6 @@
 		MainController.$inject = ['$scope', 'dataFactory'];
 
     function MainController($scope, dataFactory) {
-      $scope.city = "Waves, NC";
-      $scope.selected = {
-        lat: 35.1,
-        lon: -76.2,
-        spd: [8],
-        dir: [8],
-        gust: [8],
-        wave: [8]
-      };
       $scope.timeIndex = 0;
 
       // dataFactory.getWind().then(function(data) {
@@ -26,24 +17,12 @@
 
       // FORECAST SLIDER
       var slider = d3.slider().min(0).max(12).tickValues([0, 3, 6, 9, 12]).stepValues([0, 3, 6, 9, 12]).tickFormat(tickFormatter).showRange(true);
-      d3.select('#slider').call(slider)
-
-      function updateTime(slider) {
-        $scope.$apply(function() {
-          if (slider.value() === 0) {
-            $scope.timeIndex = 0;
-          } else {
-            $scope.timeIndex = slider.value() / 3;
-          }
-          console.log("timeIndex=", $scope.timeIndex);
-        })
-      }
-
-      slider.callback(updateTime)
+      d3.select('#slider').call(slider);
+      slider.callback(updateTime);
 
       // RENDER MAP
       var width = 500,
-        height = 500;
+        height = 400;
 
       var projection = d3.geo.albers()
         .center([20, 35])
@@ -59,7 +38,7 @@
         .scaleExtent([-8, 8])
         .on("zoom", zoomed);
 
-      var svg = d3.select("#mapBox").append("svg")
+      var svg = d3.select("#map").append("svg")
         .attr("width", width)
         .attr("height", height);
 
@@ -67,15 +46,15 @@
         .attr("class", "background")
         .attr("width", width)
         .attr("height", height)
-        .call(zoom);
+        // .call(zoom);
 
       var g = svg.append("g");
 
-      svg
-        .call(zoom)
-        .call(zoom.event);
+      // svg
+      //   .call(zoom)
+      //   .call(zoom.event);
 
-      d3.json("maps/states.json", function(error, us) {
+      d3.json("data/maps/states.json", function(error, us) {
 
         // FORMAT WIND/WAVE DATA
         console.log("dwml=", allData);
@@ -96,11 +75,10 @@
           }
           weatherArray.push(dataPoint)
         }
+        $scope.selected = weatherArray[0];
+        console.log("weatherArray", weatherArray);
 
         // WAVE CIRCLES
-        var waveColor = d3.scale.linear()
-          .domain([0, 10])
-          .range(["yellow", "red"]);
         g.selectAll("circle")
           .data(weatherArray.filter(function(d) {
             if (isNaN(d.wave[$scope.timeIndex])) {
@@ -112,11 +90,12 @@
           .enter()
           .append('circle')
           .on("click", selectPoint)
-          .attr('r', 45)
+          .attr("class", "waves")
+          .attr("r", 30)
           .attr("transform", function(d) {
             return "translate(" + projection([d.lon, d.lat]) + ")";
           })
-          .attr('fill', function(d) {
+          .attr("fill", function(d) {
             return waveColor(parseInt(d.wave[$scope.timeIndex]))
           });
 
@@ -144,9 +123,6 @@
           });
 
         // WIND VECTORS
-        var windColor = d3.scale.linear()
-          .domain([0, 25])
-          .range(["blue", "red"]);
         g.selectAll(".thing")
           .data(weatherArray)
           .enter()
@@ -209,8 +185,37 @@
         if (d === 0) {
           return "Now"
         } else {
-          return "+" + d + " Hours";
+          return "+" + d + " Hrs";
         }
+      }
+
+      // CHANGE FORECAST TIME
+      function updateTime(slider) {
+        $scope.$apply(function() {
+          if (slider.value() === 0) {
+            $scope.timeIndex = 0;
+          } else {
+            $scope.timeIndex = slider.value() / 3;
+          }
+          g.selectAll(".waves")
+            .attr("fill", function(d) {
+              return waveColor(parseInt(d.wave[$scope.timeIndex]))
+            });
+        })
+      }
+
+      // WAVE COLOR
+      function waveColor (value) {
+        return d3.scale.linear()
+          .domain([0, 8])
+          .range(["yellow", "red"])(value);
+      }
+
+      // WIND COLOR
+      function windColor (value) {
+        return d3.scale.linear()
+          .domain([0, 20])
+          .range(["blue", "red"])(value);
       }
 
       // WIND VECTOR ANIMATION

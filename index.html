@@ -8,48 +8,47 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Slabo+27px" rel="stylesheet">
 	<link rel="stylesheet" href="styles/main.css">
 	<link rel="stylesheet" type="text/css" href="styles/d3.slider.css" media="screen" />
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 </head>
 <body ng-controller="MainController">
 
-	<div id="mapBox">
-		<div id="slider"></div>
-	</div>
-	<div id="detailBox">
-		<h1>Latitude: {{selected.lat}}</h1>
-		<h1>Longitude: {{selected.lon}}</h1>
-		<h2 ng-if="timeIndex == 0">Current Weather</h2>
-		<h2 ng-if="timeIndex > 0">+{{timeIndex*3}} Hour Forecast</h2>
-		<h3>Wind</h3>
-
-		<p><b>Speed</b>: {{selected.spd[timeIndex]}} knots</p>
-		<p>Gust: {{selected.gust[timeIndex]}} knots</p>
-		<p>Direction: {{selected.dir[timeIndex]}}</p>
-		<h3>Wave</h3>
-		<p><b>Height</b>: {{selected.wave[timeIndex]}} m</p>
-	</div>
-
+	<body>
+	  <header><h1>OBX Wind</h1></header>
+	  <div id="container">
+	    <div id="left">
+				<div id="map"></div>
+				<div id="slider"></div>
+			</div>
+	    <div id="right">
+				<h1><span class="label">Latitude:</span> {{selected.lat}}</h1>
+				<h1><span class="label">Longitude:</span> {{selected.lon}}</h1>
+				<h2 ng-if="timeIndex == 0">Current Weather</h2>
+				<h2 ng-if="timeIndex > 0">+{{timeIndex*3}} Hour Forecast</h2>
+				<h3>Wind</h3>
+				<p><span class="label">Speed:</span> {{selected.spd[timeIndex]}} knots</p>
+				<p><span class="label">Gust:</span> {{selected.gust[timeIndex]}} knots</p>
+				<p><span class="label">Direction:</span> {{selected.dir[timeIndex] | degreeFilter}}</p>
+				<h3>Wave</h3>
+				<p><span class="label">Height</span>: {{selected.wave[timeIndex]}} m</p>
+			</div>
+	  </div>
+	  <footer><a href="" target="_blank"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a></footer>
+	</body>
 
 	<script src="//d3js.org/d3.v3.min.js"></script>
 	<script src="js/d3.slider.js"></script>
 
-<script src="//d3js.org/d3.geo.projection.v0.min.js"></script>
-<script src="//d3js.org/topojson.v1.min.js"></script>
+	<script src="//d3js.org/d3.geo.projection.v0.min.js"></script>
+	<script src="//d3js.org/topojson.v1.min.js"></script>
 
-	<script src="js/uswind.js"></script>
-	<script src="newGust.json"></script>
-	<script src="newwavedata.json"></script>
-	<script src="newwinddata.json"></script>
-	<script src="dwmlthingy.json"></script>
-	<script src="dwml20160919.json"></script>
-	<!-- <script src="js/data.js"></script> -->
-	<!-- <script src="js/windy.js"></script> -->
-	<script src="js/cities.js"></script>
-	<!-- <script src="js/d3.map.js"></script> -->
+	<script src="data/dwml20160919.json"></script>
+	<script src="data/cities.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="/js/app.js"></script>
 	<script src="/js/dataFactory.js"></script>
 	<script src="/js/mainController.js"></script>
+	<script src="/js/filters.js"></script>
 
 </body>
 </html>
