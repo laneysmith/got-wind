@@ -6,14 +6,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title></title>
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Slabo+27px" rel="stylesheet">
-	<link rel="stylesheet" href="styles/main.css">
-	<link rel="stylesheet" type="text/css" href="styles/d3.slider.css" media="screen" />
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/d3.slider.css" media="screen" />
+	<link rel="stylesheet" href="css/weather-icons.min.css" />
+	<link rel="stylesheet" href="css/weather-icons-wind.min.css" />
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 </head>
 <body ng-controller="MainController">
 
 	<body>
-	  <header><h1>OBX Wind</h1></header>
+	  <header><h1>OBX Wind <i class="wi wi-day-windy"></i></h1></header>
 	  <div id="container">
 	    <div id="left">
 				<div id="map"></div>
@@ -27,12 +29,12 @@
 				<h3>Wind</h3>
 				<p><span class="label">Speed:</span> {{selected.spd[timeIndex]}} knots</p>
 				<p><span class="label">Gust:</span> {{selected.gust[timeIndex]}} knots</p>
-				<p><span class="label">Direction:</span> {{selected.dir[timeIndex] | degreeFilter}}</p>
+				<p><span class="label">Direction:</span> <i class="wi wi-wind wi-from-{{selected.dir[timeIndex] | degreeFilter | lowercase}}"></i> {{selected.dir[timeIndex] | degreeFilter}} </p>
 				<h3>Wave</h3>
 				<p><span class="label">Height</span>: {{selected.wave[timeIndex]}} m</p>
 			</div>
 	  </div>
-	  <footer><a href="" target="_blank"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a></footer>
+	  <footer><a href="https://github.com/laneysmith/got-wind" target="_blank"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a></footer>
 	</body>
 
 	<script src="//d3js.org/d3.v3.min.js"></script>

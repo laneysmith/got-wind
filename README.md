@@ -14,6 +14,7 @@ curl "http://nomads.ncep.noaa.gov/cgi-bin/filter_wave.pl?file=nah.t00z.grib.grib
 grib2json -d -n -o waveData.json waveData.grb2
 ```
 
-#### Helpful links
+#### Resources
 * [Let's Make a Map](https://bost.ocks.org/mike/map/)
 * [D3.slider Tutorial](http://sujeetsr.github.io/d3.slider/)
+* [Weather Icons](https://erikflowers.github.io/weather-icons/)

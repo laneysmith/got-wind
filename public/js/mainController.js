@@ -32,11 +32,11 @@
       var path = d3.geo.path()
         .projection(projection);
 
-      var zoom = d3.behavior.zoom()
-        .translate([0, 0])
-        .scale(1)
-        .scaleExtent([-8, 8])
-        .on("zoom", zoomed);
+      // var zoom = d3.behavior.zoom()
+      //   .translate([0, 0])
+      //   .scale(1)
+      //   .scaleExtent([-8, 8])
+      //   .on("zoom", zoomed);
 
       var svg = d3.select("#map").append("svg")
         .attr("width", width)
@@ -173,10 +173,10 @@
         })
       }
 
-      function zoomed() {
-        g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-        g.select(".land").style("stroke-width", 0.5 / d3.event.scale + "px");
-      }
+      // function zoomed() {
+      //   g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+      //   g.select(".land").style("stroke-width", 0.5 / d3.event.scale + "px");
+      // }
 
       d3.select(self.frameElement).style("height", height + "px");
 
