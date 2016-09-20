@@ -2,80 +2,74 @@
   z-index: 2;
   height: 100%;
   background: none;
+  color: #efefef;
 }
 
+text {
+  color: #efefef;
+}
 .d3slider-rect-range {
   fill: #777;
   stroke: none;
 }
-
 .d3slider-rect-value {
   fill: hsl(195, 100%, 36%);
   stroke: none;
 }
-
 .d3slider-axis {
   position: relative;
   z-index: 1;
   cursor: pointer;
 }
-
 .d3slider-axis path {
   display: none;
   fill: none;
   stroke: #fff;
   shape-rendering: crispEdges;
 }
-
 .d3slider-axis line {
-    fill: none;
-    stroke: #fff;
-    shape-rendering: crispEdges;
+  fill: none;
+  stroke: #fff;
+  shape-rendering: crispEdges;
 }
-
 .d3slider text {
-  font: 12px sans-serif;
   color: orange;
 }
-
 .tick.minor text {
   display: none;
 }
-
 .tick line {
   stroke-width: 1;
+}
+.tick text {
+  fill: #efefef;
+  text-shadow: 1px 1px #000;
 }
 .tick.minor line {
   stroke-width: 1;
   stroke: #bbb;
 }
-
 .dragger rect {
   fill: #71ACE3;
   stroke: none;
   z-index: 3;
 }
-
 .dragger line {
   stroke: #aa0000;
   fill: none;
 }
-
 .dragger-outer {
-  fill: #fff;
-  stroke: #000;
+  fill: #d3d3d3;
+  stroke: #404040;
 }
-
 .dragger-inner {
-  fill: #B30424;
+  fill: none;
   stroke: none;
 }
-
 .min-marker line {
   stroke: #aa0000;
   fill: none;
 }
-
 .overlay {
   fill: none;
   pointer-events: all;

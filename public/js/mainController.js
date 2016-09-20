@@ -8,7 +8,9 @@
 		MainController.$inject = ['$scope', 'dataFactory'];
 
     function MainController($scope, dataFactory) {
+
       $scope.timeIndex = 0;
+      $scope.select;
 
       // dataFactory.getWind().then(function(data) {
       //   console.log("data=", data);
@@ -26,7 +28,7 @@
 
       var projection = d3.geo.albers()
         .center([20, 35])
-        .scale(15000)
+        .scale(19000)
         .translate([width / 2, height / 2]);
 
       var path = d3.geo.path()
@@ -57,7 +59,6 @@
       d3.json("data/maps/states.json", function(error, us) {
 
         // FORMAT WIND/WAVE DATA
-        console.log("dwml=", allData);
         var wind = allData.data;
         var len = wind.location.length;
         var windInfo = allData.head;
@@ -75,8 +76,10 @@
           }
           weatherArray.push(dataPoint)
         }
-        $scope.selected = weatherArray[0];
-        console.log("weatherArray", weatherArray);
+
+        $scope.$apply(function() {
+          $scope.selected = weatherArray[0];
+        });
 
         // WAVE CIRCLES
         g.selectAll("circle")
@@ -91,7 +94,7 @@
           .append('circle')
           .on("click", selectPoint)
           .attr("class", "waves")
-          .attr("r", 30)
+          .attr("r", 35)
           .attr("transform", function(d) {
             return "translate(" + projection([d.lon, d.lat]) + ")";
           })
@@ -171,7 +174,18 @@
         $scope.$apply(function() {
           $scope.selected = d;
         })
+        var coords = projection([d.lon, d.lat])
+        g.select("selected")
+          .style("fill", "white")
+        g.append("circle", "selected")
+          .attr("cx", coords[0])
+          .attr("cy", coords[1])
+          .attr("r", 5)
+          .style("fill", "black");
       }
+
+
+
 
       // function zoomed() {
       //   g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
@@ -244,6 +258,18 @@
               d3.select(this).call(lineAnimate)
             });
           }
+
+      // Formulas from http://www.movable-type.co.uk/scripts/latlong.html
+      // function toRad(deg) {return deg * Math.PI / 180;}
+      // function toDeg(rad) {return rad * 180 / Math.PI;}
+      // function lonLat(lonLat, d, dir) {
+      //   var R = 6371; // Earth's radius in km
+      //   var lon1 = toRad(lonLat[0]),
+      //     lat1 = toRad(lonLat[1]);
+      //   var lat2 = Math.asin(Math.sin(lat1) * Math.cos(d / R) + Math.cos(lat1) * Math.sin(d / R) * Math.cos(dir));
+      //   var lon2 = lon1 + Math.atan2(Math.sin(dir) * Math.sin(d / R) * Math.cos(lat1), Math.cos(d / R) - Math.sin(lat1) * Math.sin(lat2));
+      //   return [toDeg(lon2), toDeg(lat2)];
+      // }
 
     }
 
