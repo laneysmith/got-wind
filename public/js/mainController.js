@@ -91,7 +91,7 @@
           weatherArray.push(dataPoint)
         }
         $scope.$apply(function() {
-          $scope.selected = weatherArray[0];
+          $scope.selected = weatherArray[131];
         });
 
         // WAVE CIRCLES
@@ -172,14 +172,19 @@
             return d.lon > -1 ? 6 : 8;
           });
 
+          appendMarker($scope.selected.x0, $scope.selected.y0);
       });
 
       // UPDATE DATA BASED ON SELECTED POINT
       function selectPoint(d) {
+        g.selectAll("image.marker")
+          .remove()
         $scope.$apply(function() {
           $scope.selected = d;
         })
-      }
+        var coords = d3.mouse(this)
+        appendMarker(coords[0], coords[1]);
+      };
 
       // function zoomed() {
       //   g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
@@ -217,7 +222,7 @@
       function waveColor (value) {
         return d3.scale.linear()
           .domain([0, 8])
-          .range(["yellow", "red"])(value);
+          .range(["hsl(195, 100%, 80%)", "hsl(195, 100%, 40%)"])(value);
       }
 
       // WIND COLOR SCALE
@@ -226,7 +231,7 @@
           .domain([0, 20])
           .range(["blue", "red"])(value);
       }
-//
+
       // WIND VECTOR ANIMATION from https://github.com/Wolfrax/Swind
       function lineAnimate(selection) {
         selection
@@ -249,6 +254,17 @@
             .style('opacity', 0.1)
           .each('end', function() {d3.select(this).call(lineAnimate)});
         }
+
+      // APPPEND MAP MARKER
+      function appendMarker(x, y) {
+        g.append("image")
+          .attr("xlink:href", "img/marker.png")
+          .attr("class", "marker")
+          .attr("x", x-13)
+          .attr("y", y-29)
+          .attr("width", 26)
+          .attr("height", 26);
+      };
 
       // FORECAST SLIDER
       var slider = d3.slider().min(0).max(12)
