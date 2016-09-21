@@ -90,9 +90,7 @@
           }
           weatherArray.push(dataPoint)
         }
-        console.log(weatherArray);
         $scope.$apply(function() {
-          $scope.weatherArray = weatherArray;
           $scope.selected = weatherArray[0];
         });
 
