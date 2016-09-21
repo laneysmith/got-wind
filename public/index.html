@@ -29,9 +29,12 @@
 				<h3>Wind</h3>
 				<p><span class="lightblue">Speed:</span> {{selected.spd[timeIndex]}} knots</p>
 				<p><span class="lightblue">Gust:</span> {{selected.gust[timeIndex]}} knots</p>
-				<p><span class="lightblue">Direction:</span> <i class="wi wi-wind wi-from-{{selected.dir[timeIndex] | degreeFilter | lowercase}}"></i> {{selected.dir[timeIndex] | degreeFilter}} </p>
+				<p><span class="lightblue">Direction:</span> <i class="wi wi-wind wi-from-{{selected.dir[timeIndex] | degreeFilter | lowercase}}"></i> {{selected.dir[timeIndex] | degreeFilter}} ({{selected.dir[timeIndex]}}&deg;)</p>
 				<h3>Wave</h3>
 				<p><span class="lightblue">Height</span>: {{selected.wave[timeIndex]}} m</p>
+				<br /><br />
+				<span class="lightblue">Last Updated:</span> {{date}}<br />
+				<span class="lightblue">Source:</span> NOAA National Digital Forecast Database
 			</div>
 	  </div>
 	  <footer><a href="https://github.com/laneysmith/got-wind" target="_blank"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a></footer>
@@ -39,11 +42,10 @@
 
 	<script src="//d3js.org/d3.v3.min.js"></script>
 	<script src="js/d3.slider.js"></script>
-
 	<script src="//d3js.org/d3.geo.projection.v0.min.js"></script>
 	<script src="//d3js.org/topojson.v1.min.js"></script>
-
-	<script src="data/dwml20160919.json"></script>
+	<script src="data/dwml20160921.json"></script>
+	<!-- <script src="data/maps/states.json"></script> -->
 	<script src="data/cities.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

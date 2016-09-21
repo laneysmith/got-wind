@@ -16,5 +16,6 @@ grib2json -d -n -o waveData.json waveData.grb2
 
 #### Resources
 * [Let's Make a Map](https://bost.ocks.org/mike/map/)
+* [Swind](https://github.com/Wolfrax/Swind)
 * [D3.slider Tutorial](http://sujeetsr.github.io/d3.slider/)
 * [Weather Icons](https://erikflowers.github.io/weather-icons/)

@@ -1,40 +1,44 @@
-html, body {
+html {
   padding: 0;
   margin: 0;
-  color: #efefef;
 }
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   font-family: 'Slabo 27px', serif;
+  color: #efefef;
   font-size: 0.8rem;
   background-color: #222;
   text-shadow: 1px 1px #000;
   margin: 0 auto;
   padding: 20px 0;
-  max-width: 700px;
 }
 * {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-header {}
+header {
+  margin: 0 auto;}
 footer {
   text-align: center;
 }
 #container {
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
   flex: 1;
+  /*background-color: orange;*/
 }
 #left {
-  width: 500px;
+  /*width: 500px;*/
+  /*background-color: lightgreen;*/
   margin: 0 auto;
 }
 #right {
-  width: 200px;
+  flex: 1;
   padding-left: 1rem;
+  /*background-color: pink;*/
 }
 @media (max-width: 768px) {
   #container {
@@ -47,13 +51,12 @@ footer {
   }
 }
 #slider {
-  width: 500px;
-  height: 40px;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
 #map {
-  max-width: 500px;
+  max-width: 100%;
   background-color: #FFF780;
   margin: 0;
   padding: 0;
@@ -81,13 +84,7 @@ footer {
   text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px white;
 }
 .waves {
-  -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, .5);
-  -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, .5);
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, .5);
-  /*opacity: 0.5;*/
-  /*-moz-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
-  -webkit-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
-  box-shadow: 1px 2px 3px rgba(0,0,0,.5);*/
+  opacity: 0.5;
 }
 #detail {
   position: absolute;
@@ -132,8 +129,4 @@ a {
 }
 a:hover {
   color: #efefef;
-}
-
-text {
-  color: #efefef !important; 
 }
