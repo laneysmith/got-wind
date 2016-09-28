@@ -1,7 +1,7 @@
 # got wind?
 A visual wind and weather forecast app built for kiteboarders and other wind sport enthusiasts.
 
-![Wind map preview](/public/img/wind.gif "wind map preview")
+![Wind map preview](/img/wind.gif "wind map preview")
 
 #### SVG Map of United States
 US state boundary shapefiles from [US Census Bureau](https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html) (500k), converted to GeoJSON with:
