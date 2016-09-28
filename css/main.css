@@ -1,0 +1,136 @@
+html {
+  padding: 0;
+  margin: 0;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Slabo 27px', serif;
+  color: #efefef;
+  font-size: 0.8rem;
+  background-color: #222;
+  text-shadow: 1px 1px #000;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+* {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+header {
+  width: 685px;
+  margin: 0 auto;
+  /*background-color: green;*/
+}
+footer {
+  text-align: center;
+}
+#container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  /*background-color: orange;*/
+}
+#left {
+  /*width: 500px;*/
+  /*background-color: lightgreen;*/
+  margin: 0 auto;
+}
+#right {
+  flex: 1;
+  padding-left: 1rem;
+  /*background-color: pink;*/
+}
+@media (max-width: 768px) {
+  #container {
+    flex-direction: column;
+    flex: ;
+  }
+  #left, #right {
+    flex: 0;
+    padding: 0;
+  }
+}
+#slider {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+#map {
+  max-width: 100%;
+  background-color: hsl(195, 100%, 90%);
+  margin: 0;
+  padding: 0;
+  border: 10px solid #404040;
+}
+#detail {
+  margin: 0;
+  padding: 0;
+}
+.background {
+  fill: none;
+  pointer-events: all;
+}
+.land {
+  fill: hsl(134, 26%, 55%);
+  stroke: hsl(134, 26%, 25%);
+  /*fill: hsl(0, 0%, 70%);
+  stroke: hsl(0, 0%, 25%);*/
+  /*stroke-width: 0.5px;*/
+}
+.place-label {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 12pt;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px white;
+}
+.waves {
+  opacity: 0.8;
+}
+
+#detail {
+  position: absolute;
+  text-align: right;
+  top: 0;
+  right: 1em;
+}
+h1 {
+  font-family: 'Slabo 27px', serif;
+  line-height: 2.2rem;
+  margin: 0;
+}
+h2 {
+  font-family: 'Open Sans Condensed', sans-serif;
+  text-transform: uppercase;
+  font-size: 1rem;
+  color: #C0C0C0;
+  margin: 0;
+}
+h3 {
+  font-family: 'Open Sans Condensed', sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  color: hsl(195, 100%, 36%);
+  margin: 0;
+}
+p {
+  text-transform: uppercase;
+  font-weight: normal;
+  font-size: 0.9rem;
+  line-height: 1.4rem;
+  letter-spacing: 1px;
+  margin: 0;
+}
+.lightblue {
+  color: hsl(195, 100%, 80%);
+}
+a {
+  color: hsl(195, 100%, 80%);
+}
+a:hover {
+  color: #efefef;
+}
