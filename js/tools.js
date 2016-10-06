@@ -9,7 +9,7 @@
 
     return {
       // MAP ZOOM
-      // function zoomed() {
+      // zoomed: function () {
       //   g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
       //   g.select(".land").style("stroke-width", 0.5 / d3.event.scale + "px");
       // }
@@ -36,14 +36,10 @@
           return "+" + d + " Hrs";
         }
       },
-
+      
       // FORMULAS FROM http://www.movable-type.co.uk/scripts/latlong.html
-      toRad: function(deg) {
-        return deg * Math.PI / 180;
-      },
-      toDeg: function(rad) {
-        return rad * 180 / Math.PI;
-      },
+      toRad: function(deg) {return deg * Math.PI / 180;},
+      toDeg: function(rad) {return rad * 180 / Math.PI;},
       lonLat: function(lonLat, d, dir) {
         var R = 6371; // Earth's radius in km
         var lon1 = this.toRad(lonLat[0]),

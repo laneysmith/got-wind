@@ -38,7 +38,6 @@
         .attr("width", width)
         .attr("height", height)
         // .call(zoom);
-      var wavesLayer = svg.append
       var wavesLayer = svg.append("g");
       var mapLayer = svg.append("g");
       var windLayer = svg.append("g");
@@ -53,10 +52,10 @@
 
         // FORMAT WIND/WAVE DATA
         var wind = allData.data;
-        var len = wind.location.length;
         $scope.$apply(function() {
           $scope.date = allData.head.product["creation-date"]._;
         });
+        var len = wind.location.length;
         var windLocation = wind.location;
         var windParameters = wind.parameters;
         var weatherArray = [];
@@ -173,6 +172,7 @@
           .attr("dy", ".35em")
           .text(function(d) {
             return d.city;
+
           })
           .attr("x", function(d) {
             return d.lon > -1 ? 6 : 8;
